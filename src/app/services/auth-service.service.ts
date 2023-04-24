@@ -24,8 +24,8 @@ export class AuthServiceService {
   }
 
 
-  signup(loginRequest: loginRequest): Observable<any> {
-    return this.http.post<any>(this.BASE_URL + 'public/register', loginRequest,
+  signup(request: Request): Observable<any> {
+    return this.http.post<any>(this.BASE_URL + 'public/register', Request,
       {headers: new HttpHeaders({ 'Content-Type': 'application/json' }), responseType: 'text' as 'json'}).pipe(map((resp) => {
       return resp;
     }));
