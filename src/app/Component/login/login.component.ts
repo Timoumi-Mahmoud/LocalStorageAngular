@@ -14,10 +14,15 @@ export class LoginComponent implements OnInit {
   password : string = '';
 
   isSignedin = false;
-
+  errorMessage = '';
   error: string = '';
 
   constructor(private route: ActivatedRoute, private router: Router, private authService: AuthServiceService) {}
+
+  form: any = {
+    username: null,
+    password: null
+  };
 
   ngOnInit() {
     this.isSignedin = this.authService.isUserSignedin();
@@ -40,6 +45,30 @@ export class LoginComponent implements OnInit {
     } else {
       this.error = 'Invalid Credentials';
     }
+  }
+
+
+  onSubmit(): void {
+    const { username, password } = this.form;
+
+    this.authService.login(username, password).subscribe({
+      next: data => {
+        this.authService.saveUser(data);
+        console.log("ok  login +data " +data );
+        alert("ress is " + this.authService.getUser());
+
+
+
+        this.isSignedin = true;
+        // this.roles = this.storageService.getUser().roles;
+        console.log(" \n this.storageService.getUser().roles" + this.authService.getUser());
+       // this.reloadPage();
+        this.router.navigateByUrl('profile');      },
+      error: err => {
+        this.errorMessage = err.error.message;
+        // this.isLoginFailed = true;
+      }
+    });
   }
 
 }

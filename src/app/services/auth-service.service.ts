@@ -9,14 +9,15 @@ import {Register} from "../models/register";
 // import { Request } from '/src/app/models/request';
 
 const USER_KEY = 'bara123456789';
+const BASE_URlL = 'http://localhost:8888/';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthServiceService {
-
-
   private BASE_URL = 'http://localhost:8888/';
+
+
 
   constructor(private route: ActivatedRoute, private router: Router, private http: HttpClient) { }
 
@@ -93,5 +94,42 @@ export class AuthServiceService {
 
     return user;
   }
+
+
+
+
+
+  login(username: string, password: string): Observable<any> {
+    return this.http.post(
+      BASE_URlL + 'public/login',
+      {
+        username,
+        password,
+      },
+      { withCredentials: true }
+    );
+
+  }
+
+
+  public saveUser(user: any): void {
+    // window.sessionStorage.removeItem(USER_KEY);
+    console.log("storage user"+ user );
+
+    window.sessionStorage.setItem(USER_KEY, JSON.stringify(user));
+    console.log("\n window.sessionStorage"+ window.sessionStorage );
+    console.log("the connected user is "+ user)
+  }
+
+  public getUser(): any {
+    const user = window.sessionStorage.getItem(USER_KEY);
+    if (user) {
+      return JSON.parse(user);
+    }
+
+    return {};
+  }
+
+
 
 }

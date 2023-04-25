@@ -1,27 +1,5 @@
 
-<!--<div id="signin-box">-->
-<!--  <h2>Signin Here</h2>-->
-<!--  <div style="color : red" *ngIf='error'>{{error}}</div>-->
-<!--  <form name='signinForm' (submit)="doSignin()">-->
-<!--    <table>-->
-<!--      <tr>-->
-<!--        <td>Username:</td>-->
-<!--        <td><input type='text' name='username' [(ngModel)]="username"></td>-->
-<!--      </tr>-->
-<!--      <tr>-->
-<!--        <td>Password:</td>-->
-<!--        <td><input type='password' name='password' [(ngModel)]="password"/></td>-->
-<!--      </tr>-->
-<!--      <tr>-->
-<!--        <td><input name="submit" type="submit" value="Signin" /></td>-->
-<!--        <td>Don't have account? <a href="/signup" routerLink="/signup">Signup</a></td>-->
-<!--      </tr>-->
-<!--    </table>-->
-<!--  </form>-->
-<!--</div>-->
-
-
-
+<app-home></app-home>
 
 
 <section id="login">
@@ -29,47 +7,51 @@
     <div class="row">
       <div class="col-xs-12">
         <div class="form-wrap">
-          <h1>Welcome back </h1>
+          <h1>Log in with your email account</h1>
           <form role="form" id="login-form" autocomplete="off"
-                name='signinForm' (submit)="doSignin()" #f="ngForm">
+                name="form"
+                (ngSubmit)="f.form.valid && onSubmit()"
+                #f="ngForm">
 
             <div class="form-group">
               <label for="username" class="sr-only">Email</label>
-              <input type="username"  id="username" class="form-control" placeholder="username"
-                     name='username' [(ngModel)]="username"  required  #l="ngModel" >
+              <input type="username" name="username" id="username" class="form-control" placeholder="username"
+                     [(ngModel)]="form.username"
+                     required
+                     #username="ngModel"
+                     [ngClass]="{ 'is-invalid': f.submitted && username.errors }">
             </div>
-            <div class="alert alert-danger" *ngIf="l.invalid && l.touched">
-              field is required
+            <div *ngIf="username.errors && f.submitted" class="invalid-feedback">
+              Username is required!
             </div>
-
             <div class="form-group">
               <label for="key" class="sr-only">Password</label>
-              <input type="password"  id="key" class="form-control" placeholder="Password"
+              <input type="password" name="key" id="key" class="form-control" placeholder="Password"
+                     [(ngModel)]="form.password"
+                     required
+                     minlength="6"
+                     #password="ngModel"
+                     [ngClass]="{ 'is-invalid': f.submitted && password.errors }"
+              />
 
-                     name='pwd' [(ngModel)]="password" #pwd="ngModel"  minlength="6" required   />
-
-
+              <div *ngIf="password.errors && f.submitted" class="invalid-feedback">
+                <div *ngIf="password.errors['required']">Password is required</div>
+                <div *ngIf="password.errors['minlength']">
+                  Password must be at least 6 characters
+                </div>
+              </div>
 
             </div>
-            <div  class="alert alert-danger"  *ngIf="pwd.invalid && pwd.touched">
 
-              <div *ngIf="pwd.errors?.['required']" >this filed is required </div>
-              <div *ngIf="pwd.errors?.['minlength']">must have 6 digits </div>
 
-            </div>
-            <div class="checkbox" *ngIf="pwd.valid && l.valid">
-              <span class="character-checkbox "></span>
-              <span class="label">Show password</span>
-            </div>
-
-            <input type="submit" id="btn-login" class="btn btn-custom btn-lg btn-block" value="Signin"  [disabled]="f.invalid">
+            <input type="submit" id="btn-login" class="btn btn-custom btn-lg btn-block" value="Log in">
           </form>
           <a href="javascript:;" class="forget" data-toggle="modal" data-target=".forget-modal">Forgot your password?</a>
           <hr>
         </div>
-      </div>
-    </div>
-  </div>
+      </div> <!-- /.col-xs-12 -->
+    </div> <!-- /.row -->
+  </div> <!-- /.container -->
 </section>
 
 <div class="modal fade forget-modal" tabindex="-1" role="dialog" aria-labelledby="myForgetModalLabel" aria-hidden="true">
@@ -90,9 +72,9 @@
         <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
         <button type="button" class="btn btn-custom">Recovery</button>
       </div>
-    </div>
-  </div>
-</div>
+    </div> <!-- /.modal-content -->
+  </div> <!-- /.modal-dialog -->
+</div> <!-- /.modal -->
 
 <footer id="footer">
   <div class="container">
@@ -104,3 +86,86 @@
     </div>
   </div>
 </footer>
+
+
+
+<!--<section id="login">-->
+<!--  <div class="container">-->
+<!--    <div class="row">-->
+<!--      <div class="col-xs-12">-->
+<!--        <div class="form-wrap">-->
+<!--          <h1>Welcome back </h1>-->
+<!--          <form role="form" id="login-form" autocomplete="off"-->
+<!--                name='signinForm' (submit)=" onSubmit()" #f="ngForm">-->
+
+<!--            <div class="form-group">-->
+<!--              <label for="username" class="sr-only">Email</label>-->
+<!--              <input type="username"  id="username" class="form-control" placeholder="username"-->
+<!--                     name='username' [(ngModel)]="username"  required  #l="ngModel" >-->
+<!--            </div>-->
+<!--            <div class="alert alert-danger" *ngIf="l.invalid && l.touched">-->
+<!--              field is required-->
+<!--            </div>-->
+
+<!--            <div class="form-group">-->
+<!--              <label for="key" class="sr-only">Password</label>-->
+<!--              <input type="password"  id="key" class="form-control" placeholder="Password"-->
+
+<!--                     name='pwd' [(ngModel)]="password" #pwd="ngModel"  minlength="6" required   />-->
+
+
+
+<!--            </div>-->
+<!--            <div  class="alert alert-danger"  *ngIf="pwd.invalid && pwd.touched">-->
+
+<!--              <div *ngIf="pwd.errors?.['required']" >this filed is required </div>-->
+<!--              <div *ngIf="pwd.errors?.['minlength']">must have 6 digits </div>-->
+
+<!--            </div>-->
+<!--            <div class="checkbox" *ngIf="pwd.valid && l.valid">-->
+<!--              <span class="character-checkbox "></span>-->
+<!--              <span class="label">Show password</span>-->
+<!--            </div>-->
+
+<!--            <input type="submit" id="btn-login" class="btn btn-custom btn-lg btn-block" value="Signin"  [disabled]="f.invalid">-->
+<!--          </form>-->
+<!--          <a href="javascript:;" class="forget" data-toggle="modal" data-target=".forget-modal">Forgot your password?</a>-->
+<!--          <hr>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</section>-->
+
+<!--<div class="modal fade forget-modal" tabindex="-1" role="dialog" aria-labelledby="myForgetModalLabel" aria-hidden="true">-->
+<!--  <div class="modal-dialog modal-sm">-->
+<!--    <div class="modal-content">-->
+<!--      <div class="modal-header">-->
+<!--        <button type="button" class="close" data-dismiss="modal">-->
+<!--          <span aria-hidden="true">×</span>-->
+<!--          <span class="sr-only">Close</span>-->
+<!--        </button>-->
+<!--        <h4 class="modal-title">Recovery password</h4>-->
+<!--      </div>-->
+<!--      <div class="modal-body">-->
+<!--        <p>Type your email account</p>-->
+<!--        <input type="email" name="recovery-email" id="recovery-email" class="form-control" autocomplete="off">-->
+<!--      </div>-->
+<!--      <div class="modal-footer">-->
+<!--        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>-->
+<!--        <button type="button" class="btn btn-custom">Recovery</button>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
+
+<!--<footer id="footer">-->
+<!--  <div class="container">-->
+<!--    <div class="row">-->
+<!--      <div class="col-xs-12">-->
+<!--        <p>Page © - 2023</p>-->
+<!--        <p>Powered by <strong><a href="http://www.facebook.com/tavo.qiqe.lucero" target="_blank">TavoQiqe</a></strong></p>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</footer>-->

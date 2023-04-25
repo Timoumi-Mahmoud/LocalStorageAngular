@@ -22,7 +22,7 @@ export class HomeComponent implements OnInit {
   userinfo:string=''
 
 
-dataDetete!:string;
+
 
   signedinUser: string = '';
 
@@ -32,7 +32,7 @@ dataDetete!:string;
   ngOnInit() {
     this.isSignedin = this.authService.isUserSignedin()
     this.userinfo=this.authService.getSignedinUser();
-    this.dataDetete!= this.authService.getData();
+
 
     this.isSignedin = this.authService.isUserSignedin();
     this.signedinUser = this.authService.getSignedinUser();

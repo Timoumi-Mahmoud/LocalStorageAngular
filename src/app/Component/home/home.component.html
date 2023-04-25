@@ -35,7 +35,7 @@
         <a class="nav-link" routerLink="/admin">Page 1</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Page 2</a>
+        <a class="nav-link" routerLink="/profile">profile</a>
       </li>
     </ul>
 
@@ -59,18 +59,11 @@
 
 <div class="container">
 
-  <br><br>
+
 
   <div *ngIf="isSignedin">
     <p>Welcome back, {{ signedinUser }}!</p></div>
   <p>Welcome back, {{ userinfo }}!</p>
-
-{{dataDetete}}
-
-
-  <br><br><br><br><br><br><br><br><br><br>
-</div>
-
 
 
 
