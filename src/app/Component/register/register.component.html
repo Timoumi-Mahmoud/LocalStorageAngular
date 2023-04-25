@@ -4,26 +4,28 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css">
 </head>
 <body>
-<div class="container mt-3">
+<div class="container mt-3" >
 
 
 
-  <h4>Server-side Validation</h4>
-  <form class="mb-3" style="width: 800px"    #f="ngForm"  >
+  <h4 class="text-center bg-light ">Server-side Validation</h4>
+  <form class="mb-3" style="width: 800px"    #f="ngForm"   (submit)="doSignup()"  style="border: 1px solid blue; padding: 30px;" >
 
     <div class="form-row">
       <div class="form-group col-md-6">
         <label for="inputEmail4">First Name</label>
-        <input type="text" class="form-control" id="inputEmail4" placeholder="First Name">
-        <div class="invalid-feedback">
-          Please provide a valid usernmae.
+        <input type="text" class="form-control" id="inputEmail4" name="firstName" [(ngModel)]="firstName"  required #firstname ="ngModel" placeholder="First Name">
+        <div class="alert-danger alert"  *ngIf="firstname.invalid && firstname.touched">
+          <div *ngIf="firstname.errors?.['required']" >the field  is requerd</div>
+
         </div>
       </div>
       <div class="form-group col-md-6">
         <label for="inputPassword4"> Last Name</label>
-        <input type="text" class="form-control" id="inputPassword4" placeholder="Last Name">
-        <div class="invalid-feedback">
-          Please provide a valid usernmae.
+        <input type="text" class="form-control" id="inputPassword4"  name="lastName" required #lastname="ngModel"  [(ngModel)]="lastName" placeholder="Last Name">
+        <div class="alert-danger alert"  *ngIf="lastname.invalid && lastname.touched">
+          <div *ngIf="lastname.errors?.['required']" >the field  is requerd</div>
+
         </div>
       </div>
     </div>
@@ -34,15 +36,18 @@
 
     <div class="form-group">
       <label for="username">Username</label>
-      <input type="text" class="form-control " id="username" required>
-      <div class="invalid-feedback">
-        this field is required.
+      <input type="text" class="form-control " name="username" id="username"  required #userN="ngModel" [(ngModel)]="username" required  minlength="6">
+
+      <div class="alert-danger alert"  *ngIf="userN.invalid && userN.touched">
+        <div *ngIf="userN.errors?.['required']" >the field  is requerd</div>
+        <div *ngIf="userN.errors?.['minlength']" >username must be greater than 6 characters</div>
       </div>
+
     </div>
 
     <div class="form-group">
-      <label for="email">Emannil</label>
-      <input type="email" class="form-control " id="email" name="email"   required #l="ngModel"
+      <label for="email">Email</label>
+      <input type="email" class="form-control " id="email" name="email"  [(ngModel)]="email"   required #l="ngModel"
              ngModel pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}">
       <div class="alert-danger alert"  *ngIf="l.invalid && l.touched">
         <div *ngIf="l.errors?.['required']" >the email is requerd</div>
@@ -54,7 +59,7 @@
 
     <div class="form-group">
       <label for="dateBirth">Date of birth</label>
-      <input type="date"  name="date" class="form-control is-valid" id="dateBirth" required #d="ngModel" ngModel    >
+      <input type="date"  name="date" class="form-control is-valid" id="dateBirth"  [(ngModel)]="birthDate" required #d="ngModel" ngModel >
       <div class="alert-danger alert"  *ngIf="d.invalid && d.touched">
         <div *ngIf="d.errors?.['required']" >the date field  is requerd</div>
       </div>
@@ -63,9 +68,10 @@
 
     <div class="form-group">
       <label for="job">Occupation</label>
-      <input type="text" class="form-control " id="job" required>
-      <div class="invalid-feedback">
-        Please provide a valid usernmae.
+      <input type="text" class="form-control "   name="occupation"    [(ngModel)]="occupation" id="job" required>
+      <div class="alert-danger alert"  *ngIf="lastname.invalid && lastname.touched">
+        <div *ngIf="lastname.errors?.['required']" >the field  is requerd</div>
+
       </div>
     </div>
 
@@ -73,7 +79,7 @@
     <div class="form-row">
       <div class="form-group col-md-6">
         <label for="pwd">Pasword</label>
-        <input type="password" class="form-control" id="pwd" placeholder="Enter password"
+        <input type="password" class="form-control" id="pwd"   [(ngModel)]="password"  placeholder="Enter password"
         #pwd="ngModel" ngModel required minlength="6" name="password"
         >
         <div class="alert-danger alert"  *ngIf="pwd.invalid && pwd.touched">
@@ -82,64 +88,86 @@
 
         </div>
       </div>
-      <div class="form-group col-md-6">
-        <label for="confirm-password"> Retype password </label>
-        <input type="password" class="form-control" id="confirm-password" placeholder="Retype password" name="retypePWD"
-        ngModel  #RetypePWD="ngModel" required>
-        <div class="alert-danger alert"  *ngIf="RetypePWD.invalid && RetypePWD.touched">
-          <div *ngIf="RetypePWD.errors?.['required']" >the Retype  password field  is requerd</div>
-    <div *ngIf="!(pwd.value === RetypePWD.value)" >Password doesnt match</div>
+<!--      <div class="form-group col-md-6">-->
+<!--        <label for="confirm-password"> Retype password </label>-->
+<!--        <input type="password" class="form-control" id="confirm-password" placeholder="Retype password" name="retypePWD"-->
+<!--        ngModel  #RetypePWD="ngModel" required>-->
+<!--        <div class="alert-danger alert"  *ngIf="RetypePWD.invalid && RetypePWD.touched">-->
+<!--          <div *ngIf="RetypePWD.errors?.['required']" >the Retype  password field  is requerd</div>-->
+<!--    <div *ngIf="!(pwd.value === RetypePWD.value)" >Password doesnt match</div>-->
 
 
-<!--          <div *ngIf="pwd.valid && RetypePWD.valid && pwd.value !== RetypePWD.value">-->
-<!--            Passwords do not match.-->
-<!--            <br> pwd: {{ pwd.value }}-->
-<!--            <br> RetypePWD: {{ RetypePWD.value }}-->
-<!--          </div>-->
 
 
 <!--          <div *ngIf="pwd.valid && RetypePWD.valid && pwd.value != RetypePWD.value">Passwords do not match.</div>-->
         </div>
-      </div>
+<!--      </div>-->
+<!--    </div>-->
+    <br>
+<!--    <div class="form-group">-->
+<!--      <div class="form-check">-->
+<!--        <input class="form-check-input is-invalid" type="checkbox" id="terms" required>-->
+<!--        <label class="form-check-label" for="terms">-->
+<!--          Agree to terms.-->
+<!--        </label>-->
+<!--        <div class="invalid-feedback">-->
+<!--          You must agree terms to continue.-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+    <div class="form-check form-switch">
+      <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+      <label class="form-check-label" for="flexSwitchCheckDefault">  I agree all statements in <a href="#!">Terms of service</a></label>
     </div>
     <br>
-    <div class="form-group">
-      <div class="form-check">
-        <input class="form-check-input is-invalid" type="checkbox" id="terms" required>
-        <label class="form-check-label" for="terms">
-          Agree to terms.
-        </label>
-        <div class="invalid-feedback">
-          You must agree terms to continue.
-        </div>
-      </div>
+    <div class="text-center">
+    <button class="btn btn-primary btn-lg" type="submit" [disabled]="f.invalid">Send</button>
     </div>
-    <button class="btn btn-primary" type="submit" [disabled]="f.invalid">Send</button>
   </form>
 
 
 </div>
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
-<!--<script>-->
-<!--  // Disable form submissions if there are any invalid fields-->
-<!--  (function() {-->
-<!--    'use strict';-->
-<!--    window.addEventListener('load', function() {-->
-<!--// Get the forms we want to add validation styles to-->
-<!--      var forms = document.getElementsByClassName('needs-validation');-->
-<!--// Loop over them and prevent submission-->
-<!--      var validation = Array.prototype.filter.call(forms, function(form) {-->
-<!--        form.addEventListener('submit', function(event) {-->
-<!--          if (form.checkValidity() === false) {-->
-<!--            event.preventDefault();-->
-<!--            event.stopPropagation();-->
-<!--          }-->
-<!--          form.classList.add('was-validated');-->
-<!--        }, false);-->
-<!--      });-->
-<!--    }, false);-->
-<!--  })();-->
-<!--</script>-->
+<!--<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>-->
+<!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>-->
+
 </body>
 </html>
+
+
+
+<!--<div id="signup-box">-->
+<!--  <h2>Signup Here</h2>-->
+<!--  <div style="color : red" *ngIf='error'>{{error}}</div>-->
+<!--  <div style="color : green" *ngIf='success'>{{success}}</div>-->
+<!--  <form name='signupForm' (submit)="doSignup()">-->
+<!--    <table>-->
+<!--      <tr>-->
+<!--        <td>Username:</td>-->
+<!--        <td><input type='text' name='username' [(ngModel)]="username"></td>-->
+<!--      </tr>-->
+<!--      <tr>-->
+<!--        <td>email:</td>-->
+<!--        <td><input type='email' name='email' [(ngModel)]="email"></td>-->
+<!--      </tr>-->
+<!--      <tr>-->
+<!--        <td>Password:</td>-->
+<!--        <td><input type='password' name='password' [(ngModel)]="password"/></td>-->
+<!--      </tr>-->
+<!--      <tr>-->
+<!--&lt;!&ndash;        <td>Roles:</td>&ndash;&gt;-->
+<!--&lt;!&ndash;        <td>&ndash;&gt;-->
+<!--&lt;!&ndash;          <div *ngFor="let role of user_roles">&ndash;&gt;-->
+<!--&lt;!&ndash;            <input [(ngModel)]="role.selected" name="{{ role.name }}" type="checkbox" id="{{role.name}}" (change)="onChangeCategory($event, role)">&ndash;&gt;-->
+<!--&lt;!&ndash;            <label class="form-check-label" for="{{role.name}}">&ndash;&gt;-->
+<!--&lt;!&ndash;              {{role.name}}&ndash;&gt;-->
+<!--&lt;!&ndash;            </label>&ndash;&gt;-->
+<!--&lt;!&ndash;          </div>&ndash;&gt;-->
+<!--&lt;!&ndash;        </td>&ndash;&gt;-->
+<!--      </tr>-->
+<!--      <tr>-->
+<!--        <td><input name="submit" type="submit" value="Signup" /></td>-->
+<!--        <td>Have account? <a href="/signin" routerLink="/signin">Signin</a></td>-->
+<!--      </tr>-->
+<!--    </table>-->
+<!--  </form>-->
+<!--</div>-->
