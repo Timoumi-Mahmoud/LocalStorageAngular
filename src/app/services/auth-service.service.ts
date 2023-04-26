@@ -44,11 +44,22 @@ export class AuthServiceService {
   signout() {
     sessionStorage.removeItem('user');
     sessionStorage.removeItem('token');
+    sessionStorage.clear();
     this.router.navigateByUrl('login');
   }
 
+  isLoggedIn(): boolean {
+    // Check if the auth token exists in localStorage
+    const authToken = localStorage.getItem('token');
+    console.log(" \n herere in local storage is "  + !!authToken);
+    return !!authToken; // Return true if authToken exists, false otherwise
+  }
+
+
   isUserSignedin() {
-    return sessionStorage.getItem('token') !== null;
+
+    return localStorage.getItem('token')!==null;
+    //return sessionStorage.getItem('token') !== null;
   }
 
   getSignedinUser() {

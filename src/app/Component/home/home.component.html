@@ -29,10 +29,10 @@
     </a>
     <ul class="navbar-nav">
       <li class="nav-item active">
-        <a class="nav-link" href="#">Home</a>
+        <a class="nav-link" href="#">Home   {{isSignedin}}</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" routerLink="/admin">Page 1</a>
+        <a class="nav-link" routerLink="/admin">Page 1  {{isZZZ}}</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" routerLink="/profile">profile</a>
@@ -43,15 +43,19 @@
       <li class="nav-item">
         <a class="nav-link"  routerLink="/register" *ngIf="!isSignedin"><span class="fas fa-user" ></span> Sign Up</a>
       </li>
+      <li class="nav-item" *ngIf="isSignedin==false">
+        <a class="nav-link" href="#"   routerLink="/login"><span class="fas fa-sign-in-alt" ></span> Login</a>
+      </li>
       <li class="nav-item">
-        <a class="nav-link" href="#"  *ngIf="!isSignedin" routerLink="/login"><span class="fas fa-sign-in-alt" ></span> Login</a>
+        <a class="nav-link"  (click)="doSignout()" ><span class="fas fa-sign-in-alt" ></span> get OUT </a>
       </li>
+      <li class="nav-item" >
+        <a     style="text-decoration: underline; cursor: pointer;"  class="nav-link" >LogOut</a>
 
-      <li class="nav-item" *ngIf="isSignedin">
-        <a *ngIf="isSignedin"    style="text-decoration: underline; cursor: pointer;" (click)="doSignout()"  class="nav-link" >LogOut</a>
+
 
       </li>
-    </ul>
+      <button *ngIf="!isLoggedIn()" (click)="doSignin()">Log Indfdfdfdfdf</button>    </ul>
   </div>
 </nav>
 

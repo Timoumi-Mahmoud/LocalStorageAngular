@@ -15,8 +15,9 @@ export class HomeComponent implements OnInit {
 
   username: string = '';
   password : string = '';
+  isZZZ=false;
 
-  isSignedin = false;
+  isSignedin !:boolean;
 
   error: string = '';
   userinfo:string=''
@@ -32,7 +33,7 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.isSignedin = this.authService.isUserSignedin()
     this.userinfo=this.authService.getSignedinUser();
-
+this.isZZZ=this.authService.isLoggedIn();
 
     this.isSignedin = this.authService.isUserSignedin();
     this.signedinUser = this.authService.getSignedinUser();
@@ -66,7 +67,9 @@ this.userinfo=this.authService.getToken();
     this.authService.signout();
   }
 
-
+  isLoggedIn() {
+    return this.authService.isLoggedIn();
+  }
   doSignin() {
     if(this.username !== '' && this.username !== null && this.password !== '' && this.password !== null) {
       const request: loginRequest = { username: this.username, password: this.password};
